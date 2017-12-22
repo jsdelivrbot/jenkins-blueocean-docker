@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.12.2">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.3.5">
+      <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+        <mappedUrl>blue/organizations/jenkins/Bootstrap_Infrastructure</mappedUrl>
+        <modelObject class="flow-definition" reference="../../../.."/>
+      </blueOceanUrlObject>
+    </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>STACK_NAME</name>
+          <description></description>
+          <defaultValue>core</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
+    <script>podTemplate(label: &apos;mypod&apos;, containers: [
+    containerTemplate(name: &apos;maven&apos;, image: &apos;maven:3.3.9-jdk-8-alpine&apos;, ttyEnabled: true, command: &apos;cat&apos;),
+    containerTemplate(name: &apos;golang&apos;, image: &apos;golang:1.8.0&apos;, ttyEnabled: true, command: &apos;cat&apos;),
+	containerTemplate(name: &apos;jnlp&apos;, image: &apos;projectethan007/kube-slave:latest&apos;, ttyEnabled: true,slaveConnectTimeout:300)
+		
+  ]) {
+
+    node(&apos;mypod&apos;) {
+       
+        stage(&apos;Get a Kubectl project&apos;) {
+		    git &apos;https://github.com/projectethan007/temp_wrappers&apos;
+            container(&apos;jnlp&apos;) {
+                stage(&apos;Build a kubectl  project&apos;) {
+                    sh &quot;&quot;&quot;
+                    ls -ltR
+                    echo ${STACK_NAME}
+                    chmod 755 createStack.sh 
+                    ./createStack.sh ${STACK_NAME}
+                    &quot;&quot;&quot;
+                }
+            }
+        }
+
+   }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
