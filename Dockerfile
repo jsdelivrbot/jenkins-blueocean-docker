@@ -1,6 +1,9 @@
 FROM jenkins:2.60.3-alpine
 
-USER jenkins
+USER root
+
+#USER jenkins
+
 
 RUN echo 2.60.3 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 RUN echo 2.60.3 > /usr/share/jenkins/ref/jenkins.install.InstallUtil.lastExecVersion
