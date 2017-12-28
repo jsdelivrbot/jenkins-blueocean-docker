@@ -14,4 +14,6 @@ ENV ADOP_LDAP_ENABLED=true LDAP_IS_MODIFIABLE=true ADOP_ACL_ENABLED=true
 ENV LDAP_GROUP_NAME_ADMIN=""
 ENV JENKINS_OPTS="--prefix=/jenkins -Djenkins.install.runSetupWizard=false"
 
+VOLUME /var/jenkins_home
+
 ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
