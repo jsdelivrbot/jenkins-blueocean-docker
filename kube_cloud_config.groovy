@@ -11,8 +11,8 @@ def instance = Jenkins.getInstance()
 //Plugin configuration
 def name = "kubernetes"
 def kube_url = "https://"+kube_master+":"+kube_port
-def kube_ns = "renu"
-def jenkins_url = "http://jenkins-blueocean.renu.svc.cluster.local:8080/jenkins"
+def kube_ns = "ethan"
+def jenkins_url = "http://jenkins-blueocean.ethan.svc.cluster.local:8080/jenkins"
 def containerCapStr = "10"
 def connectTimeout = 0
 def readTimeout = 0
