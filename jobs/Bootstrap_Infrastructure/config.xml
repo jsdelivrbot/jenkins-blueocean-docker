@@ -26,8 +26,6 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
     <script>podTemplate(label: &apos;mypod&apos;, containers: [
-    containerTemplate(name: &apos;maven&apos;, image: &apos;maven:3.3.9-jdk-8-alpine&apos;, ttyEnabled: true, command: &apos;cat&apos;),
-    containerTemplate(name: &apos;golang&apos;, image: &apos;golang:1.8.0&apos;, ttyEnabled: true, command: &apos;cat&apos;),
 	containerTemplate(name: &apos;jnlp&apos;, image: &apos;projectethan007/kube-slave:latest&apos;, ttyEnabled: true,slaveConnectTimeout:300)
 		
   ]) {
