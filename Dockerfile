@@ -16,7 +16,7 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 ENV ADOP_LDAP_ENABLED=true LDAP_IS_MODIFIABLE=true ADOP_ACL_ENABLED=true
 ENV LDAP_GROUP_NAME_ADMIN=""
-ENV JENKINS_OPTS="--prefix=/jenkins -Djenkins.install.runSetupWizard=false"
+ENV JENKINS_OPTS="--prefix=/jenkinscore -Djenkins.install.runSetupWizard=false"
 
 VOLUME /var/jenkins_home
 RUN mkdir /var/log/jenkins
