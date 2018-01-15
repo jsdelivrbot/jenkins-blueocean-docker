@@ -27,11 +27,11 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
     <script>podTemplate(label: &apos;mypod&apos;, containers: [
 	containerTemplate(name: &apos;jnlp&apos;, image: &apos;projectethan007/kube-slave:latest&apos;, ttyEnabled: true,slaveConnectTimeout:300)
-		
+
   ]) {
 
     node(&apos;mypod&apos;) {
-       
+
         stage(&apos;Get a Kubectl project&apos;) {
 		    git &apos;https://github.com/projectethan007/temp_wrappers&apos;
             container(&apos;jnlp&apos;) {
@@ -39,8 +39,9 @@
                     sh &quot;&quot;&quot;
                     ls -ltR
                     echo ${STACK_NAME}
-                    chmod 755 createStack.sh 
+                    chmod 755 createStack.sh
                     ./createStack.sh ${STACK_NAME}
+                    logstashSend failBuild: true, maxLines: 10000
                     &quot;&quot;&quot;
                 }
             }
