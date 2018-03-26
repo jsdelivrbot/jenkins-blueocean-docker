@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.jira.JiraProjectProperty_-DescriptorImpl plugin="jira@2.5">
+  <sites>
+    <hudson.plugins.jira.JiraSite>
+      <url>http://jira:9091/jira/</url>
+      <useHTTPAuth>false</useHTTPAuth>
+      <userName></userName>
+      <password></password>
+      <supportsWikiStyleComment>false</supportsWikiStyleComment>
+      <recordScmChanges>false</recordScmChanges>
+      <disableChangelogAnnotations>false</disableChangelogAnnotations>
+      <updateJiraIssueForAllStatus>false</updateJiraIssueForAllStatus>
+      <timeout>10</timeout>
+      <dateTimePattern></dateTimePattern>
+      <appendChangeTimestamp>false</appendChangeTimestamp>
+    </hudson.plugins.jira.JiraSite>
+  </sites>
+</hudson.plugins.jira.JiraProjectProperty_-DescriptorImpl>

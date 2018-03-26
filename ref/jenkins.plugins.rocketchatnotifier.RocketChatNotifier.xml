@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.rocketchatnotifier.RocketChatNotifier_-DescriptorImpl plugin="rocketchatnotifier@1.2.0">
+  <rocketServerUrl>http://rocketchat:3000/rocketchat</rocketServerUrl>
+  <trustSSL>false</trustSSL>
+  <username>bot</username>
+  <password>botpassword</password>
+  <channel>#jenkins</channel>
+  <buildServerUrl>http://jenkins:8081/jenkinscore/</buildServerUrl>
+</jenkins.plugins.rocketchatnotifier.RocketChatNotifier_-DescriptorImpl>

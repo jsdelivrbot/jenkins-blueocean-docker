@@ -101,3 +101,6 @@ ldap:1.18
 email-ext:2.61
 kubernetes:1.1.2
 job-dsl:1.66
+jira-issue-updater:1.18
+rocketchatnotifier:1.2.0
+simple-theme-plugin:0.4
