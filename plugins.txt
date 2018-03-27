@@ -104,4 +104,4 @@ job-dsl:1.66
 jenkins-jira-issue-updater:1.18
 rocketchatnotifier:1.2.0
 simple-theme-plugin:0.4
-swarm:1.625.3
+swarm:3.12
