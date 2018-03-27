@@ -14,7 +14,7 @@ ADD ref /usr/share/jenkins/ref/
 COPY jobs/ /usr/share/jenkins/ref/jobs/
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
-COPY plugins/ /var/jenkins_home/plugins/
+COPY plugins/hubot-steps.hpi /var/jenkins_home/plugins/hubot-steps.hpi
 ENV ADOP_LDAP_ENABLED=true LDAP_IS_MODIFIABLE=true ADOP_ACL_ENABLED=true
 ENV LDAP_GROUP_NAME_ADMIN=""
 ENV JENKINS_OPTS="--prefix=/jenkinscore -Djenkins.install.runSetupWizard=false"
