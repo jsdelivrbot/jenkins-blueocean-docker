@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.12.2">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.3.5">
+      <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+        <mappedUrl>blue/organizations/jenkins/CreateStack</mappedUrl>
+        <modelObject class="flow-definition" reference="../../../.."/>
+      </blueOceanUrlObject>
+    </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.29">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>STACK_NAME</name>
+          <description>Pass tools name as Parameter(For instance nexus, selenium)</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.42">
+    <script>def label = &quot;mypod-${UUID.randomUUID().toString()}&quot;
+def serviceaccount = &quot;jenkins&quot;
+
+podTemplate(label: label, serviceAccount: serviceaccount, containers: [
+//containerTemplate(name: &apos;kube&apos;, image: &apos;projectethan007/kube-slave:latest&apos;, ttyEnabled: true, slaveConnectTimeout:300)
+containerTemplate(name: &apos;kube&apos;, image: &apos;projectethan007/kube-slave:latest&apos;, ttyEnabled: true, slaveConnectTimeout:300, command: &apos;cat&apos;)
+
+  ]) {
+
+    node(label) {
+        stage(&apos;Add Stack&apos;) {
+                    container(&apos;kube&apos;) {
+                    sh &quot;&quot;&quot;
+                    kubectl get pods  -l app=clove-agent-rs | grep -v NAME | cut -d &apos; &apos; -f1 | xargs -n 1 -I{} kubectl exec {} -- bash -c &quot;cd /config/wrappers &amp;&amp; ./createStack.sh $STACK_NAME&quot;
+                    echo &quot;Please check the $STACK_NAME in below kubernetes output&quot;
+                    kubectl get pods | grep $STACK_NAME
+                    &quot;&quot;&quot;
+
+            }
+        }
+
+   }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
